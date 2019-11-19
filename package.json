@@ -1,0 +1,28 @@
+{
+  "name": "cs340",
+  "version": "1.0.0",
+  "description": "Website developed for CS340.",
+  "main": "app.js",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "ejs": "^2.7.3",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.1.6-alpha.6",
+    "mysql": "^2.17.1",
+    "req-flash": "0.0.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thienlnam/CS340EmployeeCheckout.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thienlnam/CS340EmployeeCheckout/issues"
+  },
+  "homepage": "https://github.com/thienlnam/CS340EmployeeCheckout#readme"
+}

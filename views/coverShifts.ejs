@@ -1,0 +1,27 @@
+<% include partials/header.ejs %>
+
+<% if (shiftcover.length > 0) {%>
+    <ul class="flex-card-list">
+        <% shiftcover.forEach((employee, index) => { %>
+        <li>
+        <div class="flex-card">
+            <div class="card-img"><img src="http://placehold.it/350x150"></div>
+            <div class="card-content">
+            <h3>Shift Cover Opportunity</h3>
+            <div class="text">
+                <p>Cover shift for:_________</p>
+            </div>
+            <a href="#" class="d-flex-card-button">Cover Shift</a>
+            </div>
+        </div>
+        </li>
+        <% }) %>    
+    </ul>
+ 
+<% } else { %>
+    <p class="text-center">No players found. Go <a href="/addEmployee" >here</a> to add players.</p>
+<% } %>
+
+
+</body>
+</html>
