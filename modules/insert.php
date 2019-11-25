@@ -1,6 +1,6 @@
 <?php
 /* Attempt MySQL server connection. Assuming you are running MySQL */
-require_once('../dbfunctions.php');
+require_once('../dbFunctions.php');
  
 
 $db = new dbfunctions();

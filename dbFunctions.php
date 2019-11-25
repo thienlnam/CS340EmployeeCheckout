@@ -15,7 +15,8 @@ class dbfunctions {
     /*Select all employees*/
     function selectEmployees(){
         $stmt = $this->conn->prepare("SELECT * FROM `employees`");
-        $result = $stmt->execute();
+        $stmt->execute();
+        $result = $stmt->get_result();
         $stmt->close();
         return $result;
     }
@@ -24,7 +25,8 @@ class dbfunctions {
     function insertIntoEmployees($first, $last, $email, $phone){
         $stmt = $this->conn->prepare("INSERT INTO employees (firstName, lastName, email, phone) VALUES (?,?,?,?)");
         $stmt->bind_param($first, $last, $email, $phone);
-        $result = $stmt->execute();
+        $stmt->execute();
+        $result = $stmt->get_result();
         $stmt->close();
         return $result;
     }
@@ -33,7 +35,8 @@ class dbfunctions {
     function deleteEmployee($uid){
         $stmt = $this->conn->prepare("DELETE FROM `employees` WHERE 'employeeID' == ?");
         $stmt->bind_param($uid);
-        $result = $stmt->execute();
+        $stmt->execute();
+        $result = $stmt->get_result();
         $stmt->close();
         return $result;
     }
@@ -42,7 +45,8 @@ class dbfunctions {
     function updateEmployee($uid, $firstname, $lastname, $email, $phone){
         $stmt = $this->conn->prepare("UPDATE `employees` SET `firstName`=?,`lastName`=?,`email`=?,`phone`=? WHERE 'employeeID' == ?");
         $stmt->bind_param($firstname, $lastname, $email, $phone, $uid);
-        $result = $stmt->execute();
+        $stmt->execute();
+        $result = $stmt->get_result();
         $stmt-close();
         return $result;
     }
