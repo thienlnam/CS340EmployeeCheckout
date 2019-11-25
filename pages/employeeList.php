@@ -47,6 +47,7 @@ echo'
               <th>Last Name</th>
               <th>Phone Number</th>
               <th>Email</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -59,14 +60,14 @@ echo'
         
         if ($result->num_rows > 0) {
           while($row = $result->fetch_assoc()) {
-               echo '<tr>';
-               echo '<td>'. $row['employeeID'] .'</td>';
-               echo '<td>'. $row['firstName'] .'</td>';
-               echo '<td>'. $row['lastName'] .'</td>';
-               echo '<td>'. $row['phone'] .'</td>';
-               echo '<td>'. $row['email'] .'</td>';
-               
-               echo '</tr>';
+              echo '<tr>';
+              echo '<td>'. $row['employeeID'] .'</td>';
+              echo '<td>'. $row['firstName'] .'</td>';
+              echo '<td>'. $row['lastName'] .'</td>';
+              echo '<td>'. $row['phone'] .'</td>';
+              echo '<td>'. $row['email'] .'</td>';
+              echo '<td><form action="../modules/delete.php" method="post" id="form1"><button type="submit" form="form1" name="UID" value="'. $row['employeeID'].'">Delete</button></form></td>';
+              echo '</tr>';
             }
         } else {
           echo '
