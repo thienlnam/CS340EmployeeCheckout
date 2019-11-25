@@ -30,7 +30,22 @@ class dbfunctions {
     }
     
     /*Delete Employee*/
-    function delete
+    function deleteEmployee($uid){
+        $stmt = $this->conn->prepare("DELETE FROM `employees` WHERE 'employeeID' == ?");
+        $stmt->bind_param($uid);
+        $result = $stmt->execute();
+        $stmt->close();
+        return $result;
+    }
+    
+    /* Update Employee*/
+    function updateEmployee($uid, $firstname, $lastname, $email, $phone){
+        $stmt = $this->conn->prepare("UPDATE `employees` SET `firstName`=?,`lastName`=?,`email`=?,`phone`=? WHERE 'employeeID' == ?");
+        $stmt->bind_param($firstname, $lastname, $email, $phone, $uid);
+        $result = $stmt->execute();
+        $stmt-close();
+        return $result;
+    }
 }
     
     
