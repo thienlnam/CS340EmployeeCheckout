@@ -1,4 +1,43 @@
 <?php
+class dbfunctions {
+    private $conn;
+    
+    //constructor
+    function __construct(){
+        require_once dirname(__FILE__) . '/config.php';
+        require_once dirname(__FILE__) . '/dbconnect.php';
+        
+        //now lets connect
+        $db = new dbconnect();
+        $this->conn = $db->connect();
+    }
+    
+    /*Select all employees*/
+    function selectEmployees(){
+        $stmt = $this->conn->prepare("SELECT * FROM `employees`");
+        $result = $stmt->execute();
+        $stmt->close();
+        return $result;
+    }
+    
+    /*Insert Employee*/
+    function insertIntoEmployees($first, $last, $email, $phone){
+        $stmt = $this->conn->prepare("INSERT INTO employees (firstName, lastName, email, phone) VALUES (?,?,?,?)");
+        $stmt->bind_param($first, $last, $email, $phone);
+        $result = $stmt->execute();
+        $stmt->close();
+        return $result;
+    }
+    
+    /*Delete Employee*/
+    function delete
+}
+    
+    
+    
+    
+    
+   /*
     function dbConnect() {
         require_once('../config.php');
 
@@ -15,7 +54,7 @@
         return $mysqli;
     }
 
-    /* SELECT FUNCTIONS */
+    /* SELECT FUNCTIONS *
     function selectEmployees() {
         $mysqli = dbConnect();
 
@@ -26,7 +65,7 @@
 
 
 
-    /* INSERT FUNCTIONS */
+    /* INSERT FUNCTIONS *
     function insertIntoEmployees($first, $last, $email, $phone){
         $mysqli = dbConnect();
         // Attempt insert query execution
@@ -38,6 +77,6 @@
         }
         
     }
-
+    */
 
 ?>
