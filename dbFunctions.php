@@ -33,12 +33,12 @@ class dbfunctions {
     
     /*Delete Employee*/
     function deleteEmployee($uid){
-        $stmt = $this->conn->prepare("DELETE FROM `employees` WHERE 'employeeID' == ?");
-        $stmt->bind_param($uid);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $stmt->close();
-        return $result;
+        $qr = '"DELETE FROM `employees` WHERE `employeeID` == '.$uid.'"';
+        if(mysqli_query($db, $qr)){
+            echo "Recorded delete successfully.";
+        }else{
+            echo "ERROR: Unable to delete";
+        }
     }
     
     /* Update Employee*/
