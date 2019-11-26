@@ -66,7 +66,7 @@ echo'
               echo '<td>'. $row['lastName'] .'</td>';
               echo '<td>'. $row['phone'] .'</td>';
               echo '<td>'. $row['email'] .'</td>';
-              echo '<td><form action="../modules/delete.php" method="post" id="form1"><button type="submit" form="form1" name="UID" value="'. $row['employeeID'].'">Delete</button></form></td>';
+              echo '<td><form action="../modules/delete.php" method="post" id="form1"><button type="submit" form="form1" name="UID" value="'. $row['employeeID'].'">Delete</button></form><form action="./editEmployee.php" method="post" id="form2"><button type="submit" form="form2" name="UID" value="'. $row['employeeID'].'">Edit</button></form></td>';
               echo '</tr>';
             }
         } else {
