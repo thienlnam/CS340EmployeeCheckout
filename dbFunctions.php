@@ -23,21 +23,38 @@ class dbfunctions {
     
     /*Insert Employee*/
     function insertIntoEmployees($first, $last, $email, $phone){
-        $stmt = $this->conn->prepare("INSERT INTO employees (firstName, lastName, email, phone) VALUES (?,?,?,?)");
+        /*
+        $stmt = $this->conn->prepare("INSERT INTO employees (firstName, lastName, email, phone) VALUES ("?","?","?","?")");
         $stmt->bind_param($first, $last, $email, $phone);
-        $stmt->execute();
+
+        if($stmt->execute()){
+            echo "Record inserted successfully.";
+        }
+        else {
+            print_r($stmt);
+            echo "$first, $last, $email, $phone: ";
+            echo "ERROR: Unable to insert";
+        }
         $result = $stmt->get_result();
         $stmt->close();
         return $result;
+        */
+
+        $sql = "INSERT INTO employees (firstName, lastName, email, phone) VALUES ('$first','$last','$email','$phone')";
+        if ($this->conn->query($sql) === TRUE) {
+            echo "New record created successfully";
+        } else {
+            echo "Error: " . $sql . "<br>" . $this->conn->error;
+        }
     }
     
     /*Delete Employee*/
     function deleteEmployee($uid){
-        $qr = '"DELETE FROM `employees` WHERE `employeeID` == '.$uid.'"';
-        if(mysqli_query($db, $qr)){
+        $sql = "DELETE FROM `employees` WHERE `employeeID` = $uid";
+        if($this->conn->query($sql) === TRUE){
             echo "Recorded delete successfully.";
         }else{
-            echo "ERROR: Unable to delete";
+            echo "Error: " . $sql . "<br>" . $this->conn->error;
         }
     }
     

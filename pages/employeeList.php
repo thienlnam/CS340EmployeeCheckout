@@ -71,11 +71,7 @@ echo'
             }
         } else {
           echo '
-          <td>hi</td>
-          <td>hi</td>
-          <td>hi</td>
-          <td>hi</td>
-          <td>hi</td>
+          No data
           
           ';
         }
@@ -93,7 +89,7 @@ echo'
           </tbody>
           <tfoot>
             <tr>
-              <td colspan="5" class="text-center">Live data from database </td>
+              <td colspan="6" class="text-center">Live data from database </td>
             </tr>
           </tfoot>
         </table>
