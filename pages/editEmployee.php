@@ -54,6 +54,7 @@
                   <h3>Add a new employee to the database</h3>
                   <h4>This will a necessary step if they want to work shifts!</h4>
                   <input style="display:none;" name="uid" type="text" tabindex="1" value="<?php echo $UID; ?>">
+                  <input style="display:none;" name="action" value="editEmployee">
                   <fieldset>
                     <input placeholder="Your First Name" name="first" type="text" tabindex="1" value="<?php echo $first_name; ?>" required autofocus>
                   </fieldset>

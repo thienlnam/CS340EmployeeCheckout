@@ -19,11 +19,11 @@
       $db = new dbfunctions();
       $result = $db->selectEmployeeRequests();
   
-  function populateSingleShiftRequest($dateToGetCovered, $timeStart, $timeEnd, $shiftType, $additionalDetails, $firstName, $lastName, $phone, $employeeCoveringID) {
+  function populateSingleShiftRequest($dateToGetCovered, $timeStart, $timeEnd, $shiftType, $additionalDetails, $firstName, $lastName, $phone, $employeeCoveringID, $requestID) {
     if ($employeeCoveringID){
       $button = '<div class="d-flex-card-button" style="background-color: grey">Shift has been taken</div>';
     } else {
-      $button = '<a href="#" class="d-flex-card-button">Cover Shift</a>';
+      $button = '<form action="./chooseEmployeeCovering.php" method="post"><button name="rID" value="'.$requestID.'" class="d-flex-card-button">Cover Shift</button></form>';
     }
 
     if ($additionalDetails){
@@ -99,7 +99,8 @@
                   $lastName = $row['lastName'];
                   $phone = $row['phone'];
                   $employeeCoveringID = $row['employeeCoveringID'];
-                  populateSingleShiftRequest($dateToGetCovered, $timeStart, $timeEnd, $shiftType, $additionalDetails, $firstName, $lastName, $phone, $employeeCoveringID); 
+                  $requestID = $row['requestID'];
+                  populateSingleShiftRequest($dateToGetCovered, $timeStart, $timeEnd, $shiftType, $additionalDetails, $firstName, $lastName, $phone, $employeeCoveringID, $requestID); 
                 }
               }
               

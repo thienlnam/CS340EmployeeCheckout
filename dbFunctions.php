@@ -195,6 +195,17 @@ class dbfunctions {
         }
     }
 
+    /* Update Shift Request */
+    function updateShiftRequest($uid, $rid){
+        $sql = "UPDATE `employeeRequests` SET employeeCoveringID = '$uid' WHERE requestID = $rid";
+        if ($this->conn->query($sql) === TRUE) {
+            echo "Shift successfully Covered<br>";
+            echo '<a href="http://web.engr.oregonstate.edu/~namt/cs340/pages/coverShifts.php">Back to shift requests</a>';
+        } else {
+            echo "Error: " . $sql . "<br>" . $this->conn->error;
+        }
+    }
+
 
 
 
