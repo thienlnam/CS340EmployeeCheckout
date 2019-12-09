@@ -22,6 +22,10 @@ body {
 	background:#0CF;
 }
 
+.largeInput{
+	font-size: 25px;
+	width: auto;
+}
 .container {
 	max-width:400px;
 	width:100%;

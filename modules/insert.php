@@ -4,14 +4,24 @@ require_once('../dbFunctions.php');
  
 
 $db = new dbfunctions();
-    
-// Escape user inputs for security
-$first_name = $_POST['first'];
-$last_name = $_POST['last'];
-$email = $_POST['email'];
-$phone = $_POST['phone'];
- 
 
-$db->insertIntoEmployees($first_name, $last_name, $email, $phone);
+if ($_POST['action'] == "insertEmployee"){
+
+    // Escape user inputs for security
+    $first_name = $_POST['first'];
+    $last_name = $_POST['last'];
+    $email = $_POST['email'];
+    $phone = $_POST['phone'];
     
+
+    $db->insertIntoEmployees($first_name, $last_name, $email, $phone);
+} else if ($_POST['action'] == "addGroup"){ 
+    $groupName = $_POST['groupName'];
+    $db->insertIntoGroups($groupName);
+
+} else if ($_POST['action'] == "insertEmployeeIntoGroup"){
+    $userID = $_POST['employeeID'];
+    $groupID = $_POST['groupID'];
+    $db->insertEmployeeIntoGroups($userID, $groupID);
+}
 ?>

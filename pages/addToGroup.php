@@ -4,12 +4,14 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link type="text/css" rel="stylesheet" href="assets/css/scheduleTime.css" />
+    <link type="text/css" rel="stylesheet" href="../assets/css/scheduleTime.css" />
     <link rel="stylesheet" href="../assets/css/main.css">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
+    <?php 
+      require_once('../dbFunctions.php');
+    ?>
     <title>Add Employee To Group</title>
   </head>
   <body>
@@ -30,17 +32,57 @@
                   </div>
 
         <div class="container">  
-                <form id="contact" action="" method="post">
+                <form id="contact" action="../modules/insert.php" method="post">
                   <h3>Add an employee to a group</h3>
                   <h4>This will automatically enroll them into group meetings!</h4>
+                  <input name="action" value="insertEmployeeIntoGroup" style="display:none">
+                  <?php 
+                   
+                    $db = new dbfunctions();
+                    $result = $db->selectEmployees();
+                  ?>
                   <fieldset>
-                    <input placeholder="Employee ID" type="text" tabindex="1" required>
+                    <h2>Employee:</h2>
+                    <select name="employeeID" class="largeInput">
+                      <?php 
+                      if ($result->num_rows > 0) {
+                        while($row = $result->fetch_assoc()) {
+                    
+                          echo '
+                          <option value="'.$row['employeeID'].'">'.$row['firstName']. " " .$row['lastName'].'</option>
+                          ';
+                       
+                        }
+                      }
+
+
+                      ?>
+                    </select>
                   </fieldset>
+                  <br><br>
                   <fieldset>
-                    <input placeholder="Group ID" type="text" tabindex="2" required>
+                    <h2>Group:</h2>
+                    <select name="groupID" class="largeInput">
+                    <?php 
+                      $result = $db->selectGroupsList();
+                      if ($result->num_rows > 0) {
+                        while($row = $result->fetch_assoc()) {
+                    
+                          echo '
+                          <option value="'.$row['groupID'].'">'.$row['groupName'].'</option>
+                          ';
+                       
+                        }
+                      }
+
+
+                    ?>
+
+                    </select>
                   </fieldset>
+                  <br><br>
                   <fieldset>
-                    <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Submit</button>
+                    <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Add To Group</button>
                   </fieldset>
                 </form>
                

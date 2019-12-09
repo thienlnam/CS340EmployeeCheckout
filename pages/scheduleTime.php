@@ -4,12 +4,16 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link type="text/css" rel="stylesheet" href="assets/css/scheduleTime.css" />
+    <link type="text/css" rel="stylesheet" href="../assets/css/scheduleTime.css" />
     <link rel="stylesheet" href="../assets/css/main.css">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
+    <?php 
+      require_once('../dbFunctions.php');
+      $db = new dbfunctions();
+      $result = $db->selectEmployees();
+    ?>
     <title>Request Shift To Be Covered</title>
   </head>
   <body>
@@ -34,8 +38,24 @@
                   <h3>Request a shift to be covered</h3>
                   <h4>This must be done atleast 48 hours before the time of your shift!</h4>
                   <fieldset>
-                    <input placeholder="Your Employee ID" type="text" tabindex="1" required autofocus>
+                  <h2>Employee:</h2>
+                    <select name="employeeID" class="largeInput">
+                      <?php 
+                      if ($result->num_rows > 0) {
+                        while($row = $result->fetch_assoc()) {
+                    
+                          echo '
+                          <option value="'.$row['employeeID'].'">'.$row['firstName']. " " .$row['lastName'].'</option>
+                          ';
+                       
+                        }
+                      }
+
+
+                      ?>
+                    </select>
                   </fieldset>
+                  <br><br>
                   <fieldset>
                     <input placeholder="Date you are requesting IE: 10/24/2019" type="email" tabindex="2" required>
                   </fieldset>

@@ -33,6 +33,7 @@
                 <form id="contact" action="../modules/insert.php" method="post">
                   <h3>Add a new employee to the database</h3>
                   <h4>This will a necessary step if they want to work shifts!</h4>
+                  <input name="action" value="insertEmployee" style="display:none;">
                   <fieldset>
                     <input placeholder="Your First Name" name="first" type="text" tabindex="1" required autofocus>
                   </fieldset>
