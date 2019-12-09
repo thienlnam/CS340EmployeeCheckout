@@ -23,5 +23,15 @@ if ($_POST['action'] == "insertEmployee"){
     $userID = $_POST['employeeID'];
     $groupID = $_POST['groupID'];
     $db->insertEmployeeIntoGroups($userID, $groupID);
+} else if ($_POST['action'] == "insertShiftToBeCovered"){
+    $date = $_POST['date'];
+    $startTime = $_POST['startTime'];
+    $endTime = $_POST['endTime'];
+    $additionalInfo = $_POST['additionalInfo'];
+    $shiftID = $_POST['shiftID'];
+    $employeeID = $_POST['employeeID'];
+   
+    $db->insertShiftIntoRequests($employeeID, $shiftID, $date, $startTime, $endTime, $additionalInfo);
+
 }
 ?>

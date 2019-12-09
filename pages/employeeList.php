@@ -30,7 +30,7 @@ echo '
 <br>
 ';
 require_once('../dbFunctions.php');
-
+$db = new dbfunctions();
 
 
 
@@ -55,7 +55,7 @@ echo'
 
 
 
-        $db = new dbfunctions();
+       
         $result = $db->selectEmployees();
         
         if ($result->num_rows > 0) {

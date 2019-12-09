@@ -57,6 +57,24 @@ class dbfunctions {
         return $result;
     }
 
+    /* Select all shifts and types */
+    function selectEmployeeShifts(){
+        $stmt = $this->conn->prepare("SELECT * FROM `employeeShifts`, employees WHERE employeeShifts.employeeID = employees.employeeID ORDER BY lastName ASC");
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $stmt->close();
+        return $result;
+    }
+
+    /* Select shift by ID */
+    function selectEmployeeShiftFromID($id){
+        $stmt = $this->conn->prepare("SELECT * FROM `employeeShifts`, employees WHERE employeeShifts.employeeID = employees.employeeID AND employeeShifts.scheduleID = $id");
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $stmt->close();
+        return $result;
+    }
+
 
     /*Insert Employee*/
     function insertIntoEmployees($first, $last, $email, $phone){
@@ -107,6 +125,16 @@ class dbfunctions {
         }
     }
     
+    function insertShiftIntoRequests($employeeID, $shiftID, $date, $startTime, $endTime, $additionalInfo){
+        $sql = "INSERT INTO employeeRequests (employeeID, scheduleID, dateToGetCovered, timeStart, timeEnd, requestDetails) VALUES ('$employeeID', '$shiftID', '$date', '$startTime', '$endTime', '$additionalInfo')";
+        if ($this->conn->query($sql) === TRUE) {
+            echo "Shift covering requested successfully.<br>";
+            echo '<a href="http://web.engr.oregonstate.edu/~namt/cs340/pages/employeeList.php">Back to employee list</a>';
+        } else {
+            echo "Error: " . $sql . "<br>" . $this->conn->error;
+        }
+    }
+
     /*Delete Employee*/
     function deleteEmployee($uid){
         $sql = "DELETE FROM `employees` WHERE `employeeID` = $uid";
