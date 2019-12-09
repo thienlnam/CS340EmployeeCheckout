@@ -75,6 +75,24 @@ class dbfunctions {
         return $result;
     }
 
+    /*Select shift requests that are not yet covered */
+    function selectEmployeeRequests(){
+        $stmt = $this->conn->prepare("SELECT * FROM employeeRequests, employeeShifts, employees WHERE  employeeRequests.scheduleID = employeeShifts.scheduleID AND employeeRequests.employeeID = employees.employeeID ORDER BY employeeCoveringID ASC");
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $stmt->close();
+        return $result;
+    }
+
+    function selectSearchEmployeeRequests($searchTerm){
+        //$query = "SELECT * FROM employeeRequests INNER JOIN employeeShifts ON employeeRequests.scheduleID = employeeShifts.scheduleID INNER JOIN employees ON employeeRequests.employeeID = employees.employeeID WHERE (dateToGetCovered LIKE '%$searchTerm%' OR requestTimeStart LIKE '%$searchTerm%' OR requestTimeEnd LIKE '%$searchTerm%' OR requestDetails LIKE '%$searchTerm%' OR workDay LIKE '%$searchTerm%' OR timeStart LIKE '%$searchTerm%' OR timeEnd LIKE '%$searchTerm%' OR shiftType LIKE '%$searchTerm%' OR firstName LIKE '%$searchTerm%' OR lastName LIKE '%$searchTerm%' OR email LIKE '%$searchTerm%' OR phone LIKE '%$searchTerm%')";
+        $stmt = $this->conn->prepare("SELECT * FROM employeeRequests INNER JOIN employeeShifts ON employeeRequests.scheduleID = employeeShifts.scheduleID INNER JOIN employees ON employeeRequests.employeeID = employees.employeeID WHERE (dateToGetCovered LIKE '%$searchTerm%' OR requestTimeStart LIKE '%$searchTerm%' OR requestTimeEnd LIKE '%$searchTerm%' OR requestDetails LIKE '%$searchTerm%' OR workDay LIKE '%$searchTerm%' OR timeStart LIKE '%$searchTerm%' OR timeEnd LIKE '%$searchTerm%' OR shiftType LIKE '%$searchTerm%' OR firstName LIKE '%$searchTerm%' OR lastName LIKE '%$searchTerm%' OR email LIKE '%$searchTerm%' OR phone LIKE '%$searchTerm%')");
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $stmt->close();
+        return $result;
+    }
+   
 
     /*Insert Employee*/
     function insertIntoEmployees($first, $last, $email, $phone){
@@ -126,10 +144,10 @@ class dbfunctions {
     }
     
     function insertShiftIntoRequests($employeeID, $shiftID, $date, $startTime, $endTime, $additionalInfo){
-        $sql = "INSERT INTO employeeRequests (employeeID, scheduleID, dateToGetCovered, timeStart, timeEnd, requestDetails) VALUES ('$employeeID', '$shiftID', '$date', '$startTime', '$endTime', '$additionalInfo')";
+        $sql = "INSERT INTO employeeRequests (employeeID, scheduleID, dateToGetCovered, requestTimeStart, requestTimeEnd, requestDetails) VALUES ('$employeeID', '$shiftID', '$date', '$startTime', '$endTime', '$additionalInfo')";
         if ($this->conn->query($sql) === TRUE) {
             echo "Shift covering requested successfully.<br>";
-            echo '<a href="http://web.engr.oregonstate.edu/~namt/cs340/pages/employeeList.php">Back to employee list</a>';
+            echo '<a href="http://web.engr.oregonstate.edu/~namt/cs340/pages/coverShifts.php">View Shift Request Listings</a>';
         } else {
             echo "Error: " . $sql . "<br>" . $this->conn->error;
         }

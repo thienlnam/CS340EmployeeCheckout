@@ -40,7 +40,7 @@
                   <h4>This must be done atleast 48 hours before the time of your shift!</h4>
                   <input name="action" value="insertShiftToBeCovered" style="display:none">
                   <fieldset>
-                  <h2>Employee:</h2>
+                  <h2>Shift To Get Covered:</h2>
                     <select name="shiftID" class="largeInput" onchange="updateFields(this.value)">
                       <option></option>
                       <?php 
