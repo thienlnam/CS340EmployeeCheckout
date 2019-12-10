@@ -56,7 +56,15 @@ class dbfunctions {
         $stmt->close();
         return $result;
     }
-
+    
+    function selectEmployeeShiftsFromEmpoyeeID($id){
+        $stmt = $this->conn->prepare("SELECT * FROM `employeeShifts` WHERE employeeID = $id");
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $stmt->close();
+        return $result;
+    }
+    
     /* Select all shifts and types */
     function selectEmployeeShifts(){
         $stmt = $this->conn->prepare("SELECT * FROM `employeeShifts`, employees WHERE employeeShifts.employeeID = employees.employeeID ORDER BY lastName ASC");
@@ -153,6 +161,19 @@ class dbfunctions {
         }
     }
 
+    function insertIntoShifts($employeeID, $start, $end, $type, $workday){
+        $sql = "INSERT INTO `employeeShifts` (`scheduleID`, `employeeID`, `groupID`, `workDay`, `timeStart`, `timeEnd`, `shiftType`, `shiftRepeat`) VALUES (NULL, '$employeeID', '1', '$workday', '$start', '$end', '$type', 'test')";
+        $this->conn->query($sql);
+        $last_id = $this->conn->insert_id;
+        return $last_id;
+    }
+    
+    
+    function deleteShiftById($id){
+        $sql = "DELETE FROM `employeeShifts` WHERE scheduleID = $id";
+        $this->conn->query($sql);
+    }
+        
     /*Delete Employee*/
     function deleteEmployee($uid){
         $sql = "DELETE FROM `employees` WHERE `employeeID` = $uid";

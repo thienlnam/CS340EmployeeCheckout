@@ -28,6 +28,29 @@
           </div>
         </div>
         </div>
+<fieldset id="employees">
+<h2>Select Employee:</h2>
+  <select name="shiftID" class="largeInput" onchange="updateFields(this.value)">
+    <option></option>
+    <?php
+        require_once('../dbFunctions.php');
+        $db = new dbfunctions();
+        $result = $db->selectEmployees();
+    if ($result->num_rows > 0) {
+        
+      while($row = $result->fetch_assoc()) {
+  
+        echo '
+        <option value="'.$row['employeeID'].'">'.$row['lastName']. ", " .$row['firstName'].'</option>
+        ';
+     
+      }
+    }
+
+
+    ?>
+  </select>
+</fieldset>
         <div class="main">
 
             <div style="float:left; width: 160px;">
@@ -38,7 +61,7 @@
             </div>
 
             <script type="text/javascript">
-
+                var employeeID = -1;
                 var nav = new DayPilot.Navigator("nav");
                 nav.showMonths = 3;
                 nav.skipMonths = 3;
@@ -52,16 +75,17 @@
 
                 var dp = new DayPilot.Calendar("dp");
                 dp.viewType = "Week";
-                dp.theme = 'calendar_white'
-                dp.eventDeleteHandling = "Update";
-
+                dp.theme = 'calendar_white';
+                dp.eventDeleteHandling = "Enabled";
+            
                 dp.onEventDeleted = function(args) {
-                    $.post("backend_delete.php",
+                    dp.events.remove(args.e);
+                    $.post("../modules/backend_delete.php",
                         {
                             id: args.e.id()
                         },
-                        function() {
-                            console.log("Deleted.");
+                        function(data) {
+                            
                         });
                 };
 
@@ -91,27 +115,37 @@
 
                 // event creating
                 dp.onTimeRangeSelected = function(args) {
+                    //first add to db
                     var name = prompt("New event name:", "Event");
+                    var index = -1;
+                    $.post("../modules/backend_create.php",
+                    {
+                        eid: employeeID,
+                        start: args.start.toString(),
+                        end: args.end.toString(),
+                        name: name
+                    },
+                    function(data) {
+                        allevents = JSON.parse(data);
+                           index = allevents.id;
+                    });
+                    
+                    
+                    
+                   
+                    var id = DayPilot.guid();
                     dp.clearSelection();
                     if (!name) return;
                     var e = new DayPilot.Event({
                         start: args.start,
                         end: args.end,
-                        id: DayPilot.guid(),
+                        id: index,
                         resource: args.resource,
                         text: name
                     });
                     dp.events.add(e);
 
-                    $.post("backend_create.php",
-                            {
-                                start: args.start.toString(),
-                                end: args.end.toString(),
-                                name: name
-                            },
-                            function() {
-                                console.log("Created.");
-                            });
+                    
 
                 };
 
@@ -124,9 +158,34 @@
                 loadEvents();
 
                 function loadEvents() {
-                    dp.events.load("backend_events.php");
+                    dp.events.load("../modules/backend_events.php");
                 }
+                
+                function updateFields(shiftID){
+                    employeeID = shiftID;
+                    var params = {
+                        id: shiftID
+                      };
 
+                      $.post("../modules/backend_events.php", JSON.stringify(params), function(data) {
+                             allevents = JSON.parse(data);
+                             var i = 0;
+                             for(value in allevents){
+                             var e = new DayPilot.Event({
+                                                        start: allevents[i].start,
+                                                        end: allevents[i].end,
+                                                        id: allevents[i].id,
+                                                        text: allevents[i].text
+                                                        });
+                                dp.events.add(e);
+                             i = i + 1;
+                             }
+                      });
+                    
+                    var dropdown = document.getElementById('employees');
+                    dropdown.style.display = 'none';
+                }
+                
             </script>
 
             <script type="text/javascript">
@@ -141,7 +200,7 @@
         </div>
         <div class="clear">
         </div>
-
 </body>
+
 </html>
 
