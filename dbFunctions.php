@@ -198,15 +198,6 @@ class dbfunctions {
     
     /* Update Employee*/
     function updateEmployee($uid, $firstname, $lastname, $email, $phone){
-        /*
-        $stmt = $this->conn->prepare("UPDATE `employees` SET `firstName`=?,`lastName`=?,`email`=?,`phone`=? WHERE 'employeeID' == ?");
-        $stmt->bind_param($firstname, $lastname, $email, $phone, $uid);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $stmt-close();
-        return $result;
-        */
-        
         $sql = "UPDATE `employees` SET firstName = '$firstname', lastName = '$lastname', email = '$email', phone = '$phone' WHERE employeeID = $uid";
         if ($this->conn->query($sql) === TRUE) {
             echo "Record successfully updated<br>";

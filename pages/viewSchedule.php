@@ -5,7 +5,7 @@
 	<!-- demo stylesheet -->
     	<link type="text/css" rel="stylesheet" href="../assets/css/layout.css" />
         <link type="text/css" rel="stylesheet" href="../assets/css/calendar_white.css" />
-        <link rel="stylesheet" href="assets/css/main.css">
+        <link rel="stylesheet" href="../assets/css/main.css">
 	<!-- helper libraries -->
 	<script src="../js/jquery-1.9.1.min.js" type="text/javascript"></script>
 
@@ -90,7 +90,7 @@
                 };
 
                 dp.onEventMoved = function(args) {
-                    $.post("backend_move.php",
+                    $.post("../modules/backend_move.php",
                             {
                                 id: args.e.id(),
                                 newStart: args.newStart.toString(),
@@ -102,7 +102,7 @@
                 };
 
                 dp.onEventResized = function(args) {
-                    $.post("backend_resize.php",
+                    $.post("../modules/backend_resize.php",
                             {
                                 id: args.e.id(),
                                 newStart: args.newStart.toString(),
