@@ -162,7 +162,7 @@ class dbfunctions {
     }
 
     function insertIntoShifts($employeeID, $start, $end, $type, $workday){
-        $sql = "INSERT INTO `employeeShifts` (`scheduleID`, `employeeID`, `groupID`, `workDay`, `timeStart`, `timeEnd`, `shiftType`, `shiftRepeat`) VALUES (NULL, '$employeeID', '1', '$workday', '$start', '$end', '$type', 'test')";
+        $sql = "INSERT INTO `employeeShifts` (`scheduleID`, `employeeID`, `groupID`, `workDay`, `timeStart`, `timeEnd`, `shiftType`, `shiftRepeat`) VALUES (NULL, '$employeeID', '1', '$workday', '$start', '$end', '$type', 'Weekly')";
         $this->conn->query($sql);
         $last_id = $this->conn->insert_id;
         return $last_id;

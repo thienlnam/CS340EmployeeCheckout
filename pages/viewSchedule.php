@@ -116,7 +116,7 @@
                 // event creating
                 dp.onTimeRangeSelected = function(args) {
                     //first add to db
-                    var name = prompt("New event name:", "Event");
+                    var name = prompt("New Shift Type:", "Standard Shift");
                     var index = -1;
                     console.log(args.start.toString());
                     $.post("../modules/backend_create.php",
