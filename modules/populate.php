@@ -41,11 +41,10 @@ if ($_POST['action'] == "updateDate"){
       } else {
         $check = 7;
       }
-
-      
       for ($i = strtotime($startDate); $i <= strtotime($endDate); $i = strtotime('+1 day', $i)) {
         if (date('N', $i) == $check) {
           $dateShow =  date('l Y-m-d', $i); //prints the date only if it's a Monday
+            echo $dateShow;
           $dateValue = date('Y-m-d', $i);
           $datesHTML .= '<option value="'.$dateValue.'">'.$dateShow.'</option>';
         }

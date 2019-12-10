@@ -118,9 +118,10 @@
                     //first add to db
                     var name = prompt("New event name:", "Event");
                     var index = -1;
+                    console.log(args.start.toString());
                     $.post("../modules/backend_create.php",
                     {
-                        eid: employeeID,
+                        id: employeeID,
                         start: args.start.toString(),
                         end: args.end.toString(),
                         name: name
@@ -168,7 +169,9 @@
                       };
 
                       $.post("../modules/backend_events.php", JSON.stringify(params), function(data) {
+                             console.log(data);
                              allevents = JSON.parse(data);
+                             
                              var i = 0;
                              for(value in allevents){
                              var e = new DayPilot.Event({
